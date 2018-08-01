@@ -5,19 +5,18 @@
 </template>
 
 <script>
-  export default {
-    name: 'infotwo',
-    data() {
-      return {
-        msg: 'info two page'
-      }
-    },
-    mounted() {},
-    methods: {}
-  }
+export default {
+  name: 'infotwo',
+  data () {
+    return {
+      msg: 'info two page'
+    }
+  },
+  mounted () {},
+  methods: {}
+}
 </script>
 
 <style>
 
 </style>
-

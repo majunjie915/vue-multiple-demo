@@ -5,20 +5,19 @@
 </template>
 
 <script>
-  export default {
-    name: 'infoone',
-    data() {
-      return {}
-    },
-    watch: {},
-    components: {},
-    filters: {},
-    mounted() {},
-    methods: {}
-  }
+export default {
+  name: 'infoone',
+  data () {
+    return {}
+  },
+  watch: {},
+  components: {},
+  filters: {},
+  mounted () {},
+  methods: {}
+}
 </script>
 
 <style>
 
 </style>
-

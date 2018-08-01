@@ -53,9 +53,7 @@
         <router-view/>
       </div>
     </section>
-    <footer>
-      
-    </footer>
+    <footer></footer>
   </div>
 </template>
 
