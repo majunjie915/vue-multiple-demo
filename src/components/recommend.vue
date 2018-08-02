@@ -3,7 +3,7 @@
     <h5>类目</h5>
     <ul>
       <li v-for="(item, index) in recommendList" :key="index">
-        <a :href="`${link}?query=${item.title}`">
+        <a :href="`${link}?q=${item.title}`">
           <div class="tab-img">
             <img :src="item.src" alt="">
           </div>
