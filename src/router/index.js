@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import helloWorld from '@/components/HelloWorld'
+import recommend from '@/components/recommend'
 import skipLink from '@/components/skipLink'
 
 Vue.use(Router)
@@ -9,8 +9,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'helloWorld',
-      component: helloWorld
+      name: 'recommend',
+      component: recommend
     },
     {
       path: '/keywordrelated',
