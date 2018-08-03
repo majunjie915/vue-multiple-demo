@@ -5,11 +5,12 @@
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   name: 'infoone',
   data () {
     return {
-      query: decodeURIComponent(this.getUrlParams('q')),
+      query: decodeURIComponent(this.getUrlParams('q'))
     }
   },
   watch: {},
@@ -18,12 +19,12 @@ export default {
   mounted () {
   },
   methods: {
-    getUrlParams ( name, url) {
+    getUrlParams (name, url) {
       if (!url) url = location.href;
-      name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-      var regexS = "[\\?&]"+name+"=([^&#]*)";
-      var regex = new RegExp( regexS );
-      var results = regex.exec( url );
+      name = name.replace(/[\[]/, '\\\[').replace(/[\]]/, '\\\]');
+      var regexS = '[\\?&]' + name + '=([^&#]*)';
+      var regex = new RegExp(regexS);
+      var results = regex.exec(url);
       return results == null ? null : results[1];
     }
   }

@@ -8,18 +8,74 @@
         <ul>
           <li v-for="(item, index) in classify"
             :key="index"
-            :class="{selected: currentPage === item.path}"
-            @click="switchPage(item)">
+            :class="{selected: currentType === item.type}"
+            @click="switchType(item)">
             {{item.name}}
           </li>
         </ul>
       </aside>
       <div class="right">
-        <router-view/>
+        <section class="recommend">
+          <ul class="content">
+            <li v-for="(item, index) in dataList[currentType]" :key="index">
+              <h5>{{item.title}}</h5>
+              <ul class="items">
+                <li v-for="(value, key) in item.data" :key="key">
+                  <a :href="`${link}?q=${value.title}`">
+                    <div class="tab-img">
+                      <img :src="value.src" alt="">
+                    </div>
+                    <p>{{value.title}}</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
       </div>
     </section>
   </div>
 </template>
+
+<script>
+/* eslint-disable semi */
+/* eslint-disable comma-dangle */
+export default {
+  name: 'constructure',
+  data () {
+    return {
+      currentType: 'recommend',
+      link: 'infoone.html',
+      classify: [],
+      dataList: [],
+    }
+  },
+  created () {
+    let that = this;
+    that.$ajax.get('static/data.json')
+      .then(res => {
+        console.log(res.data);
+        this.classify = res.data.data.classify;
+        that.dataList = res.data.data.list;
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  },
+  mounted () {
+  },
+  methods: {
+    switchType: function (item) {
+      const type = item.type
+      this.currentType = type
+    }
+  },
+  watch: {
+    $route () {
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 // px转rem
@@ -56,7 +112,7 @@ a {list-style: none;color: #7c7c7c;text-decoration: none;}
   }
   .container {
     position: absolute;
-    top: pr(88);
+    top: pr(87);
     bottom: 0;
     width: 100%;
     overflow: hidden;
@@ -97,60 +153,35 @@ a {list-style: none;color: #7c7c7c;text-decoration: none;}
       overflow-y: auto;
       padding: pr(20) 4%;
       box-sizing: border-box;
+      .recommend {
+        h5 {
+          padding: pr(30) 0;
+          color: #9b9b9b;
+        }
+        .items {
+          li {
+            float: left;
+            width: pr(166);
+            margin: pr(10) 0;
+            text-align: center;
+            color: #5d5d5d;
+            font-size: pr(24);
+            .tab-img {
+              width: 76%;
+              margin: 0 auto;
+              img {
+                width: 100%;
+              }
+            }
+          }
+          &:after {
+            display: table;
+            clear: both;
+            content: "";
+          }
+        }
+      }
     }
   }
 }
 </style>
-
-<script>
-/* eslint-disable semi */
-/* eslint-disable comma-dangle */
-export default {
-  name: 'constructure',
-  data () {
-    return {
-      triangleAside: require('../static/images/triangleGray.png'),
-      triangleAsideSel: require('../static/images/triangleRight.png'),
-      currentPage: '/',
-      classify: [
-        {name: '热门推荐', path: '/'},
-        {name: '生鲜水果', path: 'keywordrelated'},
-        {name: '进口食品', path: 'seriesanalysis'},
-        {name: '休闲零食', path: 'brandanalysis'},
-        {name: '酒水乳饮', path: ''},
-        {name: '粮油副食', path: ''},
-        {name: '美妆个护', path: ''},
-        {name: '家具用品', path: ''},
-        {name: '家庭清洁', path: ''},
-        {name: '母婴玩具', path: ''},
-        {name: '家用电器', path: ''},
-        {name: '保健品', path: ''},
-        {name: '厨房用品', path: ''},
-      ]
-    }
-  },
-  created () {
-    this.currentPage = location.hash !== '#/' ? location.hash.split('#/')[1] : '/';
-    let that = this;
-    that.$ajax.get('static/data.json')
-      .then(res => {
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-  },
-  methods: {
-    switchPage: function (item) {
-      const path = item.path
-      this.currentPage = path
-      this.$router.push(path)
-    }
-  },
-  watch: {
-    $route () {
-      this.currentPage = location.hash !== '#/' ? location.hash.split('#/')[1] : '/'
-    }
-  }
-}
-</script>
